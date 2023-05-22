@@ -1,14 +1,43 @@
 pipeline {
-    agent { 
-		docker { 
-			image 'alpine:latest' 
-		}
-	}
+    agent any
+    
     stages {
-        stage('build') {
+        stage('Input Name') {
             steps {
-                echo "$NAME"
-                echo "$AGE"
+                script {
+                    def name = input(
+                        id: 'nameInput',
+                        message: 'Enter your name:',
+                        parameters: [
+                            string(defaultValue: '', description: 'Name', name: 'NAME')
+                        ]
+                    )
+                    env.NAME = name
+                }
+            }
+        }
+        
+        stage('Input Age') {
+            steps {
+                script {
+                    def age = input(
+                        id: 'ageInput',
+                        message: 'Enter your age:',
+                        parameters: [
+                            string(defaultValue: '', description: 'Age', name: 'AGE')
+                        ]
+                    )
+                    env.AGE = age
+                }
+            }
+        }
+        
+        stage('Print Name and Age') {
+            steps {
+                script {
+                    echo "Name: ${env.NAME}"
+                    echo "Age: ${env.AGE}"
+                }
             }
         }
     }
