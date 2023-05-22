@@ -1,33 +1,34 @@
 pipeline {
-    agent {
-        docker {
-            image 'alpine:latest'
-        }
-    }
-    stages {
-        stage('Create File') {
-            steps {          
-                sh 'touch /file.txt'
-                sh 'echo $(date) > /file.txt'
-        }
-        stage('Print File Content') {
-            steps {
-                sh 'cat /file.txt'
-            }
-        }
-        stage('Check File') {
-            steps {
-                script {
-                    def grepResult = sh(script: 'grep -q "2023" /file.txt', returnStatus: true)
-                    def wordExists = grepResult == 0
-                    
-                    if (wordExists) {
-                        echo 'Word "2023" exists in the file'
-                    } else {
-                        echo 'Word "2023" does not exist in the file'
-                    }
-                }
-            }
-        }
-    }
+		agent {
+			docker {
+				image 'alpine:latest'
+			}
+		}
+		stages {
+			stage('Create File') {
+				steps {          
+					sh 'touch /file.txt'
+					sh 'echo $(date) > /file.txt'
+			}
+			stage('Print File Content') {
+				steps {
+					sh 'cat /file.txt'
+				}
+			}
+			stage('Check File') {
+				steps {
+					script {
+						def grepResult = sh(script: 'grep -q "2023" /file.txt', returnStatus: true)
+						def wordExists = grepResult == 0
+						
+						if (wordExists) {
+							echo 'Word "2023" exists in the file'
+						} else {
+							echo 'Word "2023" does not exist in the file'
+						}
+					}
+				}
+			}
+		}
+	}
 }
