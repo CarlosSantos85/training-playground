@@ -6,7 +6,9 @@ pipeline {
     }
     stages {
         stage('Create File') {
-            steps {
+            steps {          
+                sh 'touch /file.txt'
+                sh 'echo $(date) > /file.txt'
                 def grepResult = sh(returnStatus: true, script: 'grep -q "2023" /path/to/file.txt')
                     def wordExists = grepResult == 0
                     
