@@ -10,6 +10,7 @@ pipeline {
                 sh 'touch /file.txt'
                 sh 'echo $(date) > /file.txt'
                 sh 'sleep 10s'
+                sh 'grep "2023" /file.txt'
             }
         }
         stage('Print File Content') {
