@@ -7,10 +7,8 @@ pipeline {
     stages {
      stage('Create File') {
             steps {
-                sh '''
-                    touch /file.txt
-                    echo $(date) > /file.txt
-                '''
+                sh touch /file.txt
+                sh echo $(date) > /file.txt               
 		sleep 10s
             }
         }
