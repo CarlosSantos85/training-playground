@@ -9,13 +9,13 @@ pipeline {
             steps {
            script {
                     def currentDate = sh(returnStdout: true, script: 'date').trim()
-                    writeFile file: '/file.txt', text: currentDate
+                    writeFile file: 'file.txt', text: currentDate
                 }
             }
         }
         stage('Print File Content') {
             steps {
-                sh 'cat /file.txt'
+                sh 'cat file.txt'
             }
         }
     }
