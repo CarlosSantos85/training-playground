@@ -1,22 +1,15 @@
 pipeline {
-    agent {
-        docker {
-            image 'alpine:latest'
-        }
-    }
-    stages {
-        stage('Create File') {
-            steps {
-           script {
-                    def currentDate = sh(returnStdout: true, script: 'date').trim()
-                    writeFile file: 'file.txt', text: currentDate
-                }
-            }
-        }
-        stage('Print File Content') {
-            steps {
-                sh 'cat file.txt'
-            }
-        }
-    }
+	agent { 
+		docker { image 'alpine:latest' }
+	}
+	stages { 
+		stage('build') {
+			steps {
+				saveAndPrintDate("test") sh "sleep 10s" saveAndPrintDate("test2") 
+			}
+		}
+	}
+}
+def saveAndPrintDate(filename = '') {
+	sh "date > $filename && cat $filename"
 }
