@@ -7,9 +7,10 @@ pipeline {
     stages {
         stage('Create File') {
             steps {
-                sh 'touch /file.txt'
-                sh 'echo $(date) > /file.txt'
-                sh 'sleep 10s'
+           script {
+                    def currentDate = sh(returnStdout: true, script: 'date').trim()
+                    writeFile file: '/file.txt', text: currentDate
+                }
             }
         }
         stage('Print File Content') {
