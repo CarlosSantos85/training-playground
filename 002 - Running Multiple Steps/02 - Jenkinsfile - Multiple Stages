@@ -9,12 +9,15 @@ pipeline {
 				steps {          
 					sh 'touch /file.txt'
 					sh 'echo $(date) > /file.txt'
+				}
 			}
+			
 			stage('Print File Content') {
 				steps {
 					sh 'cat /file.txt'
 				}
-			}
+			}			
+			
 			stage('Check File') {
 				steps {
 					script {
@@ -29,6 +32,6 @@ pipeline {
 					}
 				}
 			}
+					
 		}
 	}
-}
