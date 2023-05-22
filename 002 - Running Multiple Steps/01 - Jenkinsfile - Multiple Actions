@@ -1,26 +1,20 @@
 pipeline {
-    agent { 
-        docker { 
-            image 'alpine:latest' 
-        }
-    }
-    stages {
-        stage('Print Date to File')
-    {
-            steps 
-        {
-                script
-        {
-                    def currentDate = new Date()
-                    def formattedDate = currentDate.format('yyyy-MM-dd')
-                    for  (int i = 1; i<=2; i++)
-            {
-                    writeFile file: 'output.txt', text: formattedDate
-            sh 'sleep 10s'
-            }
-        }
-
-         }
-    }
-    }
-}
+ agent any stages {
+ stage('Build') {
+ steps {
+ script {
+ def currentDate = new Date() def formattedDate = currentDate.format('yyyy-MM-dd') writeFile file: 'output.txt', text: formattedDate }
+ }
+ }
+ stage('Test') {
+ steps {
+ script {
+ def fileContent = readFile('output.txt').trim() if (fileContent == '2023') {
+ echo 'File content is correct.' }
+ else {
+ error 'File content is incorrect.' }
+ }
+ }
+ }
+ }
+ }
