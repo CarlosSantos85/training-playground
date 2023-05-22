@@ -9,7 +9,16 @@ pipeline {
             steps {          
                 sh 'touch /file.txt'
                 sh 'echo $(date) > /file.txt'
-                def grepResult = sh(returnStatus: true, script: 'grep -q "2023" /file.txt')
+        }
+        stage('Print File Content') {
+            steps {
+                sh 'cat /file.txt'
+            }
+        }
+        stage('Check File') {
+            steps {
+                script {
+                    def grepResult = sh(script: 'grep -q "2023" /file.txt', returnStatus: true)
                     def wordExists = grepResult == 0
                     
                     if (wordExists) {
@@ -17,11 +26,7 @@ pipeline {
                     } else {
                         echo 'Word "2023" does not exist in the file'
                     }
-            }
-        }
-        stage('Print File Content') {
-            steps {
-                sh 'cat /file.txt'
+                }
             }
         }
     }
