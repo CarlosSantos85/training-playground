@@ -13,5 +13,10 @@ pipeline {
                 sh 'cat /etc/alpine-release'
             }
         }
+	stage('Print System Date') {
+            steps {
+                sh 'date'
+            }
+        }
     }
 }
