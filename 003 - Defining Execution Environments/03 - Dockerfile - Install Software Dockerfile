@@ -1,1 +1,5 @@
 FROM alpine:latest
+
+RUN apk --no-cache add curl
+
+CMD ["curl", "www.google.com"]
