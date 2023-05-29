@@ -1,46 +1,52 @@
 pipeline {
-    agent any
-    
-    stages {
-        stage('User Selection') {
-            steps {
-                script {
-                    def userInput = input(
-                        id: 'userInput',
-                        message: 'Select an action:',
-                        parameters: [
-                            choice(choices: ['Build', 'Test'], description: 'Action', name: 'ACTION')
-                        ]
+    agent { 
+        docker { 
+            image 'alpine:latest' 
+        }
+    }
+    stages {
+        stage('User Input') {
+            steps {
+                script {
+                    def userInput = input(
+                        message: 'Select a stage to execute (build/test):',
+                        parameters: [choice(choices: ['build', 'test'], description: 'Select a stage', name: 'stageSelection')]
                     )
-                    env.ACTION = userInput.toUpperCase()
-                }
-            }
-        }
-        
-        stage('Build') {
-            when {
-                expression {
-                    return env.ACTION == 'BUILD'
-                }
-            }
-            steps {
-                echo 'Executing Build...'
-                // Place your build steps here
-                echo 'Build complete!'
-            }
-        }
-        
-        stage('Test') {
-            when {
-                expression {
-                    return env.ACTION == 'TEST'
-                }
-            }
-            steps {
-                echo 'Executing Test...'
-                // Place your test steps here
-                echo 'Test complete!'
-            }
-        }
-    }
+                    def selectedStage = userInput.toUpperCase()
+
+                    if (selectedStage == 'build') {
+                        buildStage()
+                    } else if (selectedStage == 'test') {
+                        testStage()
+                    } else {
+                        error "Invalid stage selection: ${selectedStage}"
+                    }
+                }
+            }
+        }
+    }
+}
+
+ 
+
+def buildStage() {
+    stage('Build') {
+        steps {
+            echo "Executing build stage..."
+            // Perform build operations here
+            echo "Build stage completed."
+        }
+    }
+}
+
+ 
+
+def testStage() {
+    stage('Test') {
+        steps {
+            echo "Executing test stage..."
+            // Perform test operations here
+            echo "Test stage completed."
+        }
+    }
 }
