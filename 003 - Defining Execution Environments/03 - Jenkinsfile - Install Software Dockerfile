@@ -1,11 +1,20 @@
 pipeline {
-    agent { 
-	}
+    agent any
+
     stages {
-        stage('build') {
+        stage('Build Docker Image') {
             steps {
-            	echo "Don't install curl here!"
-                sh "curl www.google.com"
+                script {
+                    def imageName = 'my-curl-image'
+                    def dockerFile = 'Dockerfile'
+
+                    def dockerImage = docker.build(imageName, "-f ${dockerFile} .")
+
+                    // Run the Docker container
+                    dockerImage.inside {
+                        sh 'curl www.google.com'
+                    }
+                }
             }
         }
     }
