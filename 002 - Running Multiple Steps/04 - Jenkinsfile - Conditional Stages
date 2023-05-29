@@ -1,5 +1,9 @@
 pipeline {
-agent any
+agent {
+        docker {
+            image 'alpine:latest'
+        }
+    }
     stages {
         stage('User Input') {
             steps {
@@ -10,9 +14,9 @@ agent any
                     )
                     def selectedStage = userInput.toUpperCase()
 
-                    if (selectedStage == 'build') {
+                    if (selectedStage == 'BUILD') {
                         buildStage()
-                    } else if (selectedStage == 'test') {
+                    } else if (selectedStage == 'TEST') {
                         testStage()
                     } else {
                         error "Invalid stage selection: ${selectedStage}"
