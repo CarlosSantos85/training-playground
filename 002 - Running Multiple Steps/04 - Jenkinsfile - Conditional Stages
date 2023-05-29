@@ -1,9 +1,46 @@
 pipeline {
-    agent { 
-		docker { 
-			image 'alpine:latest' 
-		}
-	}
+    agent any
+    
     stages {
+        stage('User Selection') {
+            steps {
+                script {
+                    def userInput = input(
+                        id: 'userInput',
+                        message: 'Select an action:',
+                        parameters: [
+                            choice(choices: ['Build', 'Test'], description: 'Action', name: 'ACTION')
+                        ]
+                    )
+                    env.ACTION = userInput.toUpperCase()
+                }
+            }
+        }
+        
+        stage('Build') {
+            when {
+                expression {
+                    return env.ACTION == 'BUILD'
+                }
+            }
+            steps {
+                echo 'Executing Build...'
+                // Place your build steps here
+                echo 'Build complete!'
+            }
+        }
+        
+        stage('Test') {
+            when {
+                expression {
+                    return env.ACTION == 'TEST'
+                }
+            }
+            steps {
+                echo 'Executing Test...'
+                // Place your test steps here
+                echo 'Test complete!'
+            }
+        }
     }
 }
