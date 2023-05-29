@@ -1,15 +1,27 @@
 pipeline {
-    agent {
-        dockerfile {
-            dir '003 - Defining Execution Environments'
-            filename 'Update 03 - Dockerfile - Install Software Dockerfile'
-        }
-    }
+    agent none
+
     stages {
-        stage('build') {
+        stage('java') {
+            agent {
+                dockerfile {
+                    dir '003 - Defining Execution Environments'
+                    filename 'Update 03 - Dockerfile - Install Software Dockerfile'
+                }
+            }
             steps {
-                sh "echo 'You need to install curl'"
-                sh "curl www.google.com"
+                sh "mvn -version"
+            }
+        }
+        stage('node') {
+            agent {
+                dockerfile {
+                    dir '003 - Defining Execution Environments'
+                    filename '04 - Dockerfile - NPM'
+                }
+            }
+            steps {
+                sh "node -v"
             }
         }
     }
