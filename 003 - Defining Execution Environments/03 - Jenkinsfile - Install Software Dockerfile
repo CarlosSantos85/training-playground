@@ -11,7 +11,7 @@ pipeline {
 
                     dockerfile {
                         // Specify the directory and filename of the Dockerfile
-                        dir '/003 - Defining Execution Environments'
+                        dir '003 - Defining Execution Environments/03 - Dockerfile - Install Software Dockerfile'
                         filename '03 - Dockerfile - Install Software Dockerfile'
 
                         // Add any additional build arguments or command-line arguments
