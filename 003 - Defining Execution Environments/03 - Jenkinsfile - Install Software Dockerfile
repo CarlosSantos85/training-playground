@@ -1,7 +1,7 @@
 pipeline {
     agent {
         dockerfile {
-            dir '003 - Defining Execution Environments/03 - Dockerfile - Install Software Dockerfile'
+            dir '003 - Defining Execution Environments'
             filename 'Update 03 - Dockerfile - Install Software Dockerfile'
         }
     }
