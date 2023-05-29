@@ -1,31 +1,16 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build and Run Docker Image') {
-            steps {
-                script {
-                    def imageName = 'my-existing-image'
-
-                    def dockerImage = docker.build(imageName)
-
-                    dockerfile {
-                        // Specify the directory and filename of the Dockerfile
-                        dir '003 - Defining Execution Environments/03 - Dockerfile - Install Software Dockerfile'
-                        filename '03 - Dockerfile - Install Software Dockerfile'
-
-                        // Add any additional build arguments or command-line arguments
-                        additionalBuildArgs '--network=host'
-                        args '-v /my/host/dir:/container/dir'
-                    }
-
-                    // Run the Docker container
-                    dockerImage.inside {
-                        // Add any additional steps or commands you want to run within the Docker container
-                        sh 'echo "Running inside the Docker container"'
-                    }
-                }
-            }
-        }
-    }
+    agent { 
+    dockerfile {
+            dir '003 - Defining Execution Environments'
+            filename '02 - Dockerfile - Dockerfile Agent'
+        }
+    }
+    stages {
+        stage('build') {
+            steps {
+                sh "echo 'You need to install curl'"
+                sh "curl www.google.com"
+            }
+        }
+    }
 }
