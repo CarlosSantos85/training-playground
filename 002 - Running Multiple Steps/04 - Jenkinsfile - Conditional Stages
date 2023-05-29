@@ -30,7 +30,7 @@ agent {
  
 
 def buildStage() {
-    stage('Build') {
+    stage('BUILD') {
         steps {
             echo "Executing build stage..."
             // Perform build operations here
@@ -42,7 +42,7 @@ def buildStage() {
  
 
 def testStage() {
-    stage('Test') {
+    stage('TEST') {
         steps {
             echo "Executing test stage..."
             // Perform test operations here
