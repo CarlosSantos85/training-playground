@@ -2,17 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Build Docker Image') {
+        stage('Build and Run Docker Image') {
             steps {
                 script {
-                    def imageName = 'my-curl-image'
-                    def dockerFile = 'Dockerfile'
+                    def imageName = 'my-existing-image'
+                    def dockerFile = 'path/to/your/Dockerfile'  // Provide the path to your existing Dockerfile
 
                     def dockerImage = docker.build(imageName, "-f ${dockerFile} .")
 
                     // Run the Docker container
                     dockerImage.inside {
-                        sh 'curl www.google.com'
+                        // Add any additional steps or commands you want to run within the Docker container
+                        sh 'echo "Running inside the Docker container"'
                     }
                 }
             }
