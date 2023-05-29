@@ -7,17 +7,16 @@ pipeline {
                 script {
                     def imageName = 'my-existing-image'
 
+                    def dockerImage = docker.build(imageName)
+
                     dockerfile {
                         // Specify the directory and filename of the Dockerfile
-                        dir '003 - Defining Execution Environments/'
-                        filename '03 - Dockerfile - Install Software Dockerfile'
+                        dir '003 - Defining Execution Environments'
+                        filename ''03 - Dockerfile - Install Software Dockerfile'
 
                         // Add any additional build arguments or command-line arguments
                         additionalBuildArgs '--network=host'
                         args '-v /my/host/dir:/container/dir'
-
-                        // Build the Docker image
-                        dockerImage = docker.build(imageName)
                     }
 
                     // Run the Docker container
