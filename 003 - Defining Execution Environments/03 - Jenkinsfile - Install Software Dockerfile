@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     def imageName = 'my-existing-image'
-                    def dockerFile = 'path/to/your/Dockerfile'  // Provide the path to your existing Dockerfile
+                    def dockerFile = '003 - Defining Execution Environments/03 - Dockerfile - Install Software Dockerfile'  // Provide the path to your existing Dockerfile
 
                     def dockerImage = docker.build(imageName, "-f ${dockerFile} .")
 
