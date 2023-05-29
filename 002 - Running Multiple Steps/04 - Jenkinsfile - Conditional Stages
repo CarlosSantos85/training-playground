@@ -1,3 +1,23 @@
+def buildStage() {
+    stage('Build') {
+        steps {
+            echo "Executing build stage..."
+            // Perform build operations here
+            echo "Build stage completed."
+        }
+    }
+}
+
+def testStage() {
+    stage('Test') {
+        steps {
+            echo "Executing test stage..."
+            // Perform test operations here
+            echo "Test stage completed."
+        }
+    }
+}
+
 pipeline {
     agent {
         docker {
@@ -23,26 +43,6 @@ pipeline {
                     }
                 }
             }
-        }
-    }
-}
-
-def buildStage() {
-    stage('Build') {
-        steps {
-            echo "Executing build stage..."
-            // Perform build operations here
-            echo "Build stage completed."
-        }
-    }
-}
-
-def testStage() {
-    stage('Test') {
-        steps {
-            echo "Executing test stage..."
-            // Perform test operations here
-            echo "Test stage completed."
         }
     }
 }
