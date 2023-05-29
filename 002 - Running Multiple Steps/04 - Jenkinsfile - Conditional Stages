@@ -10,7 +10,7 @@ agent {
                 script {
                     def userInput = input(
                         message: 'Select a stage to execute (build/test):',
-                        parameters: [choice(choices: ['build', 'test'], description: 'Select a stage', name: 'stageSelection')]
+                        parameters: [choice(choices: ['build', 'test','bananas'], description: 'Select a stage', name: 'stageSelection')]
                     )
                     def selectedStage = userInput.toUpperCase()
 
