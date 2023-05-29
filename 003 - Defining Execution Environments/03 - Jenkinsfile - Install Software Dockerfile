@@ -6,7 +6,7 @@ pipeline {
             agent {
                 dockerfile {
                     dir '003 - Defining Execution Environments'
-                    filename 'Update 03 - Dockerfile - Install Software Dockerfile'
+                    filename '03 - Dockerfile - Install Software Dockerfile'
                 }
             }
             steps {
